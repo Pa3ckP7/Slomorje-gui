@@ -21,12 +21,8 @@ namespace Slomorje_gui
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
-            TempText.Text = WeatherData.Temp();
-            WindText.Text = WeatherData.Wind();
-            WsizeText.Text = WeatherData.SeaW();
-            TempSeaPText.Text = WeatherData.SeaTP();
-            TempSeaB1Text.Text = WeatherData.SeaTG1();
-            TempSeaB2Text.Text = WeatherData.SeaTG2();
+            backgroundWorker1.RunWorkerAsync();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,5 +36,20 @@ namespace Slomorje_gui
             
         }
 
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            WeatherData.RefreshData();
+            
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            TempText.Text = WeatherData.Temp();
+            WindText.Text = WeatherData.Wind();
+            WsizeText.Text = WeatherData.SeaW();
+            TempSeaPText.Text = WeatherData.SeaTP();
+            TempSeaB1Text.Text = WeatherData.SeaTG1();
+            TempSeaB2Text.Text = WeatherData.SeaTG2();
+        }
     }
 }
